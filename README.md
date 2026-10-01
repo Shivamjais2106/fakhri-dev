@@ -1,36 +1,111 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Fakhri Dev
 
-## Getting Started
+Official website for **Fakhri Software Development** — built with Next.js (App Router), TypeScript, and MongoDB.
 
-First, run the development server:
+## Tech Stack
+
+- **Framework:** Next.js (App Router, TypeScript)
+- **Styling:** Tailwind CSS
+- **Database:** MongoDB (via Mongoose)
+- **Auth:** JWT (jose) + bcryptjs
+- **Animations:** Framer Motion, GSAP
+- **Containerization:** Docker
+
+## Getting Started (Local Development)
+
+### Prerequisites
+
+- Node.js 20+
+- npm
+- MongoDB (local instance or a connection string, e.g. MongoDB Atlas)
+- Docker Desktop (optional, only needed for container-based setup)
+
+### 1. Clone the repository
+
+```bash
+git clone <repo-url>
+cd fakhri-dev
+```
+
+### 2. Install dependencies
+
+```bash
+npm install
+```
+
+### 3. Set up environment variables
+
+Copy the example env file and fill in your own values:
+
+```bash
+cp .env.example .env.local
+```
+
+Required variables:
+
+```
+MONGODB_URI=
+NEXT_PUBLIC_SITE_URL=http://localhost:3000
+```
+
+### 4. Run the development server
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Running with Docker
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Build and run (app only)
 
-## Learn More
+```bash
+docker build -t fakhri-dev .
+docker run -p 3000:3000 --env-file .env.local fakhri-dev
+```
 
-To learn more about Next.js, take a look at the following resources:
+### Build and run (app + MongoDB together)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+docker compose up --build
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+This starts both the Next.js app and a MongoDB container. The app will be available at [http://localhost:3000](http://localhost:3000).
 
-## Deploy on Vercel
+To stop:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```bash
+docker compose down
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Project Structure
+
+```
+fakhri-dev/
+├── app/              # Next.js App Router pages and layouts
+├── components/       # Reusable UI components
+├── lib/              # Utilities, DB connection, server actions
+├── public/           # Static assets (images, fonts, etc.)
+├── styles/           # Global styles and CSS variables
+├── Dockerfile
+├── docker-compose.yml
+└── next.config.ts
+```
+
+## Available Scripts
+
+| Command | Description |
+| --- | --- |
+| `npm run dev` | Start the development server |
+| `npm run build` | Build the app for production |
+| `npm run start` | Start the production server |
+| `npm run lint` | Run ESLint |
+
+## Deployment
+
+This app can be deployed as a standalone Docker container on any server, or on platforms like Vercel for the Next.js app alone (with an external MongoDB instance).
+
+## License
+
+Private — Fakhri Software Development. All rights reserved.
